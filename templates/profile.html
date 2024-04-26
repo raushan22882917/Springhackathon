@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="">
+
+    <title> GlucoWizard </title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- Fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+
+    <!-- Font awesome style -->
+    <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <!-- Responsive style -->
+    <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet">
+
+    <style>
+
+
+        .containers {
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: auto;
+        }
+
+        .report-section {
+            margin-bottom: 20px;
+        }
+
+        .patient-info {
+            font-weight: bold;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .time {
+            font-style: italic;
+            color: #666;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #007bff;
+        }
+
+        p {
+            color: #333;
+        }
+
+        strong {
+            color: #0056b3;
+        }
+
+        .btn-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
+
+</head>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container">
+              <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="{{url_for('about')}}">
+                  <span>
+                    GlucoWizard
+                  </span>
+                </a>
+      
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class=""> </span>
+                </button>
+      
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('about')}}"> About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('department')}}">Departments</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('data')}}">Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('contact')}}">Contact Us</a>
+                    </li>
+      
+                    <li class="nav-item">
+                      {% if 'loggedin' in session %}
+                      <a class="nav-link" href="{{ url_for('logout') }}">logout</a>
+                      {% else %}
+                      <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                      {% endif %}
+                    </li>
+      
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('profile')}}">Report</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </header>
+        <!-- end header section -->
+    </div>
+
+    <!-- about section -->
+
+    <section class="about_section layout_padding">
+        <div class="header">
+            <h1>Glucowizard</h1>
+            <p class="time" id="timestamp">Generated at: {{ diabetes_prediction_data[-1]['timestamp'] }}</p>
+
+        </div>
+
+        <div class="containers">
+            <h2 class="text-center">Automated Doctor's Report</h2>
+
+            <!-- Diabetes Prediction Details Section -->
+            {% if diabetes_prediction_data %}
+            <div class="report-section">
+                <h3>Diabetes Prediction Details</h3>
+                <p><strong>Pregnancies:</strong> {{ diabetes_prediction_data[-1]['pregnancies'] }}</p>
+                <p><strong>Glucose:</strong> {{ diabetes_prediction_data[-1]['glucose'] }} mg/dL</p>
+                <p><strong>Blood Pressure:</strong> {{ diabetes_prediction_data[-1]['blood_pressure'] }}</p>
+                <p><strong>Skin Thickness:</strong> {{ diabetes_prediction_data[-1]['skin_thickness'] }} mm</p>
+                <p><strong>Insulin:</strong> {{ diabetes_prediction_data[-1]['insulin'] }} IU</p>
+                <p><strong>BMI:</strong> {{ diabetes_prediction_data[-1]['bmi'] }} kg/m²</p>
+                <p><strong>Diabetes Pedigree Function:</strong> {{
+                    diabetes_prediction_data[-1]['diabetes_pedigree_function'] }}</p>
+                <p><strong>Age:</strong> {{ diabetes_prediction_data[-1]['age'] }} years</p>
+            </div>
+            {% else %}
+            <p>No diabetes prediction data found.</p>
+            {% endif %}
+
+            <!-- Patient Information Section -->
+            {% if user_data %}
+            <div class="report-section">
+                <h3>Patient Information</h3>
+                <p class="patient-info">Name: {{ user_data[1] }}</p>
+                <p class="patient-info">Age: {{ diabetes_prediction_data[-1]['age'] }} years</p>
+                <p class="patient-info">Date of Visit: {{ diabetes_prediction_data[-1]['timestamp'] }}</p>
+            </div>
+            {% else %}
+            <p>No user data found.</p>
+            {% endif %}
+
+            <!-- Additional Information Section (if available) -->
+            {% if user_data %}
+            <div class="report-section">
+                <h3>Additional Information</h3>
+                <p><strong>Email:</strong> {{ user_data[2] }}</p>
+                <p><strong>Unique ID:</strong> {{ user_data[3] }}</p>
+                <p><strong>Phone Number:</strong> {{ user_data[4] }}</p>
+                <p><strong>Address:</strong> {{ user_data[6] }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Disclaimer Section -->
+            <div class="report-section">
+                <h3>Disclaimer</h3>
+                <p>This report is generated based on data analysis and predictive algorithms. It should be reviewed and
+                    confirmed by a qualified healthcare professional before any medical decisions are made.</p>
+            </div>
+
+            <!-- Button Section -->
+            <div class="btn-section">
+                <button class="btn btn-primary" onclick="downloadReport()">Download Report</button>
+                <button class="btn btn-success" onclick="sendReport()">Send Report</button>
+            </div>
+        </div>
+
+        <!-- Script to handle button actions -->
+        <script>
+            function downloadReport() {
+                // Initialize jsPDF
+                var doc = new jsPDF();
+    
+                // Get the HTML content of report sections
+                var diabetesPredictionHTML = document.getElementById('diabetes-prediction').innerHTML;
+                var patientInformationHTML = document.getElementById('patient-information').innerHTML;
+                var additionalInformationHTML = document.getElementById('additional-information').innerHTML;
+                var disclaimerHTML = document.getElementById('disclaimer').innerHTML;
+    
+                // Set font size and add report content to PDF
+                doc.setFontSize(12);
+                doc.text(10, 10, "Diabetes Prediction Details:");
+                doc.fromHTML(diabetesPredictionHTML, 15, 15);
+                doc.text(10, doc.autoTable.previous.finalY + 10, "Patient Information:");
+                doc.fromHTML(patientInformationHTML, 15, doc.autoTable.previous.finalY + 15);
+                doc.text(10, doc.autoTable.previous.finalY + 10, "Additional Information:");
+                doc.fromHTML(additionalInformationHTML, 15, doc.autoTable.previous.finalY + 15);
+                doc.text(10, doc.autoTable.previous.finalY + 10, "Disclaimer:");
+                doc.fromHTML(disclaimerHTML, 15, doc.autoTable.previous.finalY + 15);
+    
+                // Save the PDF
+                doc.save('doctor_report.pdf');
+            }
+    
+            function sendReport() {
+                // Code to initiate report sending
+                alert("Report sent successfully!");
+            }
+        </script>
+
+        <script>
+            // Get the timestamp element
+            var timestampElement = document.getElementById("timestamp");
+            
+            // Get the timestamp value
+            var timestamp = new Date("{{ diabetes_prediction_data[-1]['timestamp'] }}");
+          
+            // Calculate the time difference in milliseconds
+            var timeDifference = Date.now() - timestamp.getTime();
+          
+            // Define threshold values for color change (in milliseconds)
+            var colorThreshold1 = 300000; // 5 minutes
+            var colorThreshold2 = 600000; // 10 minutes
+          
+            // Apply different styles based on time difference
+            if (timeDifference < colorThreshold1) {
+              timestampElement.style.color = "green"; // Change to green
+            } else if (timeDifference < colorThreshold2) {
+              timestampElement.style.color = "orange"; // Change to orange
+            } else {
+              timestampElement.style.color = "red"; // Change to red
+            }
+          </script>
+    </section>
+
+    <!-- end about section -->
+
+    <!-- footer section -->
+    <footer class="footer_section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-lg-3 footer_col">
+              <div class="footer_contact">
+                <h4>
+                  Reach at..
+                </h4>
+                <div class="contact_link_box">
+                  <a href="">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>
+                      Location
+                    </span>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <span>
+                      Call +91 9699234605
+                    </span>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <span>
+                      glucowizard@gmail.com
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div class="footer_social">
+                <a href="">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+                <a href="">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+                <a href="">
+                  <i class="fa fa-linkedin" aria-hidden="true"></i>
+                </a>
+                <a href="">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 footer_col" style="margin-left:200px;">
+              <div class="footer_detail">
+                <h4>
+                  About
+                </h4>
+                <p>
+                  Empowering individuals with accurate diabetes risk predictions using advanced technology and expert
+                  insights.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="footer-info">
+            <p>
+              &copy; <span id="displayYear"></span> All Rights Reserved By
+              <a href="https://html.design/">GlucoWizard<br><br></a>
+            </p>
+    
+          </div>
+        </div>
+      </footer>
+    <!-- footer section -->
+
+   
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+
+
+</body>
+
+</html>

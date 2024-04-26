@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction Data</title>
+</head>
+<body>
+    <h1>Diabetes Prediction Data</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Unique ID</th>
+                <th>Pregnancies</th>
+                <th>Glucose</th>
+                <th>Blood Pressure</th>
+                <th>Skin Thickness</th>
+                <th>Insulin</th>
+                <th>BMI</th>
+                <th>Diabetes Pedigree Function</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.unique_id }}</td>
+                <td>{{ row.pregnancies }}</td>
+                <td>{{ row.glucose }}</td>
+                <td>{{ row.blood_pressure }}</td>
+                <td>{{ row.skin_thickness }}</td>
+                <td>{{ row.insulin }}</td>
+                <td>{{ row.bmi }}</td>
+                <td>{{ row.diabetes_pedigree_function }}</td>
+                <td>{{ row.age }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

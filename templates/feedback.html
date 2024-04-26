@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="">
+
+    <title> GlucoWizard </title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- Fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+
+    <!-- Font awesome style -->
+    <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <!-- Responsive style -->
+    <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet">
+    <style>
+        .feedback-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feedback-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feedback-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .video-box {
+            width: 400px;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container">
+              <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="{{url_for('about')}}">
+                  <span>
+                    GlucoWizard
+                  </span>
+                </a>
+      
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class=""> </span>
+                </button>
+      
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('about')}}"> About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('department')}}">Departments</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('data')}}">Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('contact')}}">Contact Us</a>
+                    </li>
+      
+                    <li class="nav-item">
+                      {% if 'loggedin' in session %}
+                      <a class="nav-link" href="{{ url_for('logout') }}">logout</a>
+                      {% else %}
+                      <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                      {% endif %}
+                    </li>
+      
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('profile')}}">Report</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </header>
+        <!-- end header section -->
+    </div>
+
+    <!-- about section -->
+
+    <section class="about_section layout_padding">
+        <div class="container">
+            <div style="display:flex;">
+                <div>
+                    <h1 class="text-center mb-4">Diabetes Prediction Feedback</h1>
+                    <form id="feedbackForm" class="feedback-form">
+                        <div class="form-group">
+                            <!-- <label for="username"></label> -->
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="Your Name:">
+                        </div>
+                        <div class="form-group">
+                            <label for="feedback"></label>
+                            <textarea class="form-control" id="feedback" name="feedback" rows="4"
+                                placeholder="Feedback:"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    </form>
+                    <hr>
+                </div>
+                <div style="margin-left: 50px;">
+                    <h2 class="mb-3">Feedback from Users:</h2>
+                    <ul id="feedbackList" class="feedback-list"></ul>
+                </div>
+            </div>
+            <!-- Video Section -->
+            <h2 class="mt-5">Video Section</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="video-box">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/VIDEO_ID1"
+                            allowfullscreen></iframe>
+                        <p><strong>User Name:</strong> John Doe</p>
+                        <p><strong>User Address:</strong> 123 Main St</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="video-box">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/VIDEO_ID2"
+                            allowfullscreen></iframe>
+                        <p><strong>User Name:</strong> Jane Smith</p>
+                        <p><strong>User Address:</strong> 456 Oak Ave</p>
+                    </div>
+                </div>
+                <!-- Add more video boxes as needed -->
+            </div>
+        </div>
+
+        <!-- Bootstrap JS and Custom JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            // Function to fetch and display feedback
+            function fetchFeedback() {
+                fetch('/get_feedback')
+                    .then(response => response.json())
+                    .then(data => {
+                        const feedbackList = document.getElementById('feedbackList');
+                        feedbackList.innerHTML = ''; // Clear previous entries
+                        data.forEach(feedback => {
+                            const li = document.createElement('li');
+                            li.textContent = `${feedback.username}: ${feedback.message}`;
+                            feedbackList.appendChild(li);
+                        });
+                    });
+            }
+
+            // Fetch feedback on page load
+            fetchFeedback();
+
+            // Handle form submission
+            document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(this);
+                fetch('/submit_feedback', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Feedback submitted successfully!');
+                            fetchFeedback(); // Fetch and display updated feedback
+                            document.getElementById('feedbackForm').reset(); // Clear form fields
+                        } else {
+                            console.error('Failed to submit feedback.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting feedback:', error);
+                    });
+            });
+        </script>
+    </section>
+
+    <!-- end about section -->
+
+    <!-- footer section -->
+    <footer class="footer_section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-lg-3 footer_col">
+              <div class="footer_contact">
+                <h4>
+                  Reach at..
+                </h4>
+                <div class="contact_link_box">
+                  <a href="">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>
+                      Location
+                    </span>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <span>
+                      Call +91 9699234605
+                    </span>
+                  </a>
+                  <a href="">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <span>
+                      glucowizard@gmail.com
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div class="footer_social">
+                <a href="">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+                <a href="">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+                <a href="">
+                  <i class="fa fa-linkedin" aria-hidden="true"></i>
+                </a>
+                <a href="">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 footer_col" style="margin-left:200px;">
+              <div class="footer_detail">
+                <h4>
+                  About
+                </h4>
+                <p>
+                  Empowering individuals with accurate diabetes risk predictions using advanced technology and expert
+                  insights.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="footer-info">
+            <p>
+              &copy; <span id="displayYear"></span> All Rights Reserved By
+              <a href="https://html.design/">GlucoWizard<br><br></a>
+            </p>
+    
+          </div>
+        </div>
+      </footer>
+    <!-- footer section -->
+
+    
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+
+
+</body>
+
+</html>
